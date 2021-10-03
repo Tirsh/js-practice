@@ -1,23 +1,31 @@
 /* Задание на урок:
 
-1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
+1) Первую часть задания повторить по уроку
 
-2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
-отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
-возвращаем пользователя к вопросам опять
+2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
+false - выводит в консоль главный объект программы
 
-3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
-"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
-"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
+3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
+"Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
+genres
 
-4) Потренироваться и переписать цикл еще двумя способами*/
-
+P.S. Функции вызывать не обязательно*/
 'use strict';
 
 // Код возьмите из предыдущего домашнего задания
 
 'use strict';
-const numberOfFilms = prompt("Сколько фильмов вы уже посмотрели?", "");
+
+function start(){
+    while (numberOfFilms == '' || 
+    numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = prompt("Сколько фильмов вы уже посмотрели?", "");
+    }
+}
+
+let numberOfFilms = '';
+start();
+
 const personalMovieDB = {
     count: +numberOfFilms,
     movies: {},
@@ -26,36 +34,49 @@ const personalMovieDB = {
     privat: false
 };
 
-let a,b; 
-
-for (let i = 0; i < 3; i++) {
-    a = prompt('Один из последних просмотренных фильмов?', "");
-    while (true) {
-        if (a == null || a == '' || a.length > 50) {
-            a = prompt('Ответ не корректный. Введите один из последних просмотренных фильмов?', "");
-        } else {
-            break;
+function rememberMyFilms(count) {
+    let a,b; 
+    for (let i = 0; i < count; i++) {
+        a = prompt('Один из последних просмотренных фильмов?', "");
+        while (true) {
+            if (a == null || a == '' || a.length > 50) {
+                a = prompt(`Ответ не корректный. 
+                Введите один из последних просмотренных фильмов?`, "");
+            } else {
+                break;
+            }
         }
-    }
-    b = prompt('На сколько оцените его?', "");
-    while (true) {
-        if (b == null || b == '') {
-            b = prompt('Не корректный ответ, введите заново?', "");
-        } else {
-            break;
+        b = prompt('На сколько оцените его?', "");
+        while (true) {
+            if (b == null || b == '') {
+                b = prompt('Не корректный ответ, введите заново?', "");
+            } else {
+                break;
+            }
         }
-    }
-    personalMovieDB.movies[a] = b;     
+        personalMovieDB.movies[a] = b;     
 
+    }
 }
-if (personalMovieDB.count < 10) {
-    console.log("Просмотрено довольно мало фильмов");
-} else if (personalMovieDB.count <= 30) {
-    console.log("Вы классический зритель");
-} else if (personalMovieDB.count > 30) {
-    console.log("Вы киноман");
-} else {
-    console.log("Произошла ошибка");
+
+rememberMyFilms(2);
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count <= 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count > 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
 }
+
+detectPersonalLevel();
 
 console.log(personalMovieDB);
+
+const str = 'One new string';
+const arr = str.split(' ');
+console.log(arr[0]);
