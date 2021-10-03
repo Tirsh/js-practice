@@ -21,3 +21,10 @@ decr--;
 
 console.log(incr);
 console.log(decr);
+
+showFirstMessage();
+function showFirstMessage(){
+    console.log('Hello World!!!');
+}
+const double = a => a * 2;
+console.log(double(5));
