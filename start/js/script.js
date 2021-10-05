@@ -28,3 +28,23 @@ function showFirstMessage(){
 }
 const double = a => a * 2;
 console.log(double(5));
+
+const obj = {
+    name: 'Test',
+    data: '21.10.1980',
+    num: 132,
+    color: {
+        background: 'red',
+        border: 'white'
+    }
+}
+
+for (let key in obj) {
+    if (typeof(obj[key]) == 'object') {
+        for (let i in obj[key]) {
+            console.log(`Property ${i}: have meaning ${obj[key][i]}`);
+        }
+    } else {       
+        console.log(`Property ${key}: have meaning ${obj[key]}`);
+    }
+}
