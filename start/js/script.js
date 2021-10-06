@@ -48,3 +48,12 @@ for (let key in obj) {
         console.log(`Property ${key}: have meaning ${obj[key]}`);
     }
 }
+
+const arr = [1, 2, 3, 4, 5];
+let a = arr.pop();
+console.log(a);
+console.log(arr);
+arr.forEach(function (item, i, arr) {
+    item * 2;
+
+})
