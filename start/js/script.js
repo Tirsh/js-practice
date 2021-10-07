@@ -57,3 +57,12 @@ arr.forEach(function (item, i, arr) {
     item * 2;
 
 })
+
+let x =1;
+let y = x = 2;
+alert(null || 2 && 3 || 4);
+let c = [1, 2, 3];
+let b = [1, 2, 3];
+console.log(c == b);
+alert(+"Infinity");
+console.log(0 || "" || 2 || undefined || true || falsе);
