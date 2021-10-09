@@ -3,9 +3,10 @@
 const box = document.getElementById("box"),
     btns = document.getElementsByTagName("button"),
     circles = document.getElementsByClassName("circle"),
-    hearts = document.querySelectorAll(".heart"),
-    heart = document.querySelector(".heart"),
-    wrapper = document.querySelector('.wrapper');
+    wrapper = document.querySelector('.wrapper'),
+    hearts = wrapper.querySelectorAll(".heart"),
+    heart = document.querySelector(".heart");
+    
 
 console.dir(box);
 
