@@ -27,8 +27,14 @@ const movieDB = {
 const promoAdv = document.querySelector('.promo__adv'),
     promoAdvBlocks = promoAdv.querySelectorAll('img'),
     promoGenre = document.querySelector('.promo__genre'),
-    promoBg = document.querySelector('.promo__bg');
+    promoBg = document.querySelector('.promo__bg'),
+    movieList = document.querySelectorAll('.promo__interactive-item');
+// 1)
 promoAdvBlocks.forEach(item => item.remove());
+// 2)
 promoGenre.innerHTML = 'ДРАМА';
+// 3)
 promoBg.style.backgroundImage = 'url("img/bg.jpg")';
-
+// 4)
+movieDB.movies.sort();
+movieList.forEach((item, i) => item.innerHTML = `${i + 1}. ${movieDB.movies[i]}`);
