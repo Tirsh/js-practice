@@ -66,3 +66,9 @@ let b = [1, 2, 3];
 console.log(c == b);
 alert(+"Infinity");
 console.log(0 || "" || 2 || undefined || true || falsе);
+
+
+
+const ar = [1, 2, 3, 4];
+
+console.log(ar.slice(1).concat(ar[0]));
