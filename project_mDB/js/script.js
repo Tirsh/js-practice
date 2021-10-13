@@ -37,16 +37,20 @@ promoGenre.innerHTML = 'ДРАМА';
 // 3)
 promoBg.style.backgroundImage = 'url("img/bg.jpg")';
 // 4)
-// movieDB.movies.sort();
 // movieList.forEach((item, i) => item.innerHTML = `${i + 1}. ${movieDB.movies[i]}`);
-movieBlock.innerHTML = '';
-movieDB.movies.forEach((film, i) => {
-    movieBlock.innerHTML += `
-    <li class="promo__interactive-item">${i+1}. ${film}
-        <div class="delete"></div>
-    </li>
-    `;
-});
+function sortFilms() {
+    movieDB.movies.sort();
+    movieBlock.innerHTML = '';
+    movieDB.movies.forEach((film, i) => {
+        movieBlock.innerHTML += `
+        <li class="promo__interactive-item">${i+1}. ${film}
+            <div class="delete"></div>
+        </li>
+        `;
+    });
+}
+
+sortFilms();
 
 /* Задания на урок:
 
@@ -59,12 +63,40 @@ P.S. Здесь есть несколько вариантов решения з
 2) Если название фильма больше, чем 21 символ - обрезать его и добавить три точки
 
 3) При клике на мусорную корзину - элемент будет удаляться из списка (сложно)
-
+    movieDB.movies.forEach(item => item.toUpperCase());
 4) Если в форме стоит галочка "Сделать любимым" - в консоль вывести сообщение: 
 "Добавляем любимый фильм"
 
 5) Фильмы должны быть отсортированы по алфавиту */
 
-'use strict';
-
 // Возьмите свой код из предыдущей практики
+
+// 1,2)
+const inputFilm = document.querySelector('.adding__input'),
+      btn = document.querySelector('button');
+
+const addFilm = function (event) {
+    event.preventDefault();
+    let filmName = inputFilm.value;
+    if(filmName == '') {
+        return;
+    } else if (filmName.length >= 21) {
+        filmName = filmName.slice(0, 22) +'...';
+    }
+     
+    movieDB.movies.push(filmName);
+    
+    sortFilms();
+    //console.log(movieDB.movies);
+};
+
+btn.addEventListener('click', addFilm);
+
+//3)
+const delButtons = document.querySelectorAll('.delete');
+const deleteFilm = (event)=>{
+    event.preventDefault();
+    console.log(event);
+};
+
+delButtons.forEach(item => item.addEventListener('click', deleteFilm));
