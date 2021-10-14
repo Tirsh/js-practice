@@ -9,7 +9,7 @@
 Реализовать только при помощи JS
 
 4) Список фильмов на странице сформировать на основании данных из
- этого JS файла.
+// этого JS файла.
 Отсортировать их по алфавиту 
 
 // 5) Добавить нумерацию выведенных фильмов */
@@ -29,7 +29,7 @@
 // 3) При клике на мусорную корзину - элемент будет удаляться из списка (сложно)
 
 // 4) Если в форме стоит галочка "Сделать любимым" - в консоль вывести
- сообщение: 
+// сообщение: 
 // "Добавляем любимый фильм"
 
 // 5) Фильмы должны быть отсортированы по алфавиту */
@@ -38,74 +38,82 @@
 
 'use strict';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const movieDB = {
+        movies: [
+            "Логан",
+            "Лига справедливости",
+            "Ла-ла лэнд",
+            "Одержимость",
+            "Скотт Пилигрим против..."
+        ]
+    };
+    
+    const promoAdv = document.querySelector('.promo__adv'),
+        promoAdvBlocks = promoAdv.querySelectorAll('img'),
+        promoGenre = document.querySelector('.promo__genre'),
+        promoBg = document.querySelector('.promo__bg'),
+        movieBlock = document.querySelector('.promo__interactive-list');
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
+    function removeAdv(){
+        // 1)
+        promoAdvBlocks.forEach(item => item.remove());
+        // 2)
+        promoGenre.innerHTML = 'ДРАМА';
+        // 3)
+        promoBg.style.backgroundImage = 'url("img/bg.jpg")';
+    }
+     
+     // 4)
+    function sortFilms(films, element) {
+        films.sort();
+        element.innerHTML = '';
+        films.forEach((film, i) => {
+            element.innerHTML += `
+            <li class="promo__interactive-item">${i+1}. ${film}
+                <div class="delete"></div>
+            </li>
+            `;
+        });
+        addDelListenner();
+    }
+    
+    // 1,2)
+    function addAddListener(){
+        const inputFilm = document.querySelector('.adding__input'),
+          btn = document.querySelector('button');
+        const chbox = document.querySelectorAll('input')[2];
+    
+        btn.addEventListener('click', event => {
+            event.preventDefault();
+            let filmName = inputFilm.value;
+            if(filmName == '') {
+                return;
+            } else if (filmName.length >= 21) {
+                filmName = filmName.slice(0, 21) +'...';
+            }     
+            movieDB.movies.push(filmName);
+            if(chbox.checked) {
+                console.log('Добавляем любимый фильм');
+            }
+            sortFilms(movieDB.movies, movieBlock);
+        });
+    }
+    
+    //3)
+    function addDelListenner(){
+        const delButtons = document.querySelectorAll('.delete');
+        delButtons.forEach(item => item.addEventListener('click', event => {
+            event.preventDefault();
+            const elementToDelete = +event.target.parentElement.innerText[0]-1;
+            delete movieDB.movies[elementToDelete];
+            sortFilms(movieDB.movies, movieBlock);
+        }));
+    }
+    
+    removeAdv();
+    sortFilms(movieDB.movies, movieBlock);
+    addAddListener();    
+});
 
-const promoAdv = document.querySelector('.promo__adv'),
-    promoAdvBlocks = promoAdv.querySelectorAll('img'),
-    promoGenre = document.querySelector('.promo__genre'),
-    promoBg = document.querySelector('.promo__bg'),
-    movieList = document.querySelectorAll('.promo__interactive-item'),
-    movieBlock = document.querySelector('.promo__interactive-list');
-// 1)
-promoAdvBlocks.forEach(item => item.remove());
-// 2)
-promoGenre.innerHTML = 'ДРАМА';
-// 3)
-promoBg.style.backgroundImage = 'url("img/bg.jpg")';
-// 4)
 
-function sortFilms() {
-    movieDB.movies.sort();
-    movieBlock.innerHTML = '';
-    movieDB.movies.forEach((film, i) => {
-        movieBlock.innerHTML += `
-        <li class="promo__interactive-item">${i+1}. ${film}
-            <div class="delete"></div>
-        </li>
-        `;
-    });
-    addDelListenner();
-}
-
-// 1,2)
-function addAddListener(){
-    const inputFilm = document.querySelector('.adding__input'),
-      btn = document.querySelector('button');
-    const chbox = document.querySelectorAll('input')[2];
-
-    btn.addEventListener('click', event => {
-        event.preventDefault();
-        let filmName = inputFilm.value;
-        if(filmName == '') {
-            return;
-        } else if (filmName.length >= 21) {
-            filmName = filmName.slice(0, 21) +'...';
-        }     
-        movieDB.movies.push(filmName);
-        chbox.checked ? console.log('Добавляем любимый фильм'):1;
-        sortFilms();
-    });
-}
-
-//3)
-function addDelListenner(){
-    const delButtons = document.querySelectorAll('.delete');
-    delButtons.forEach(item => item.addEventListener('click', event => {
-        event.preventDefault();
-        const elementToDelete = +event.target.parentElement.innerText[0] - 1;
-        delete movieDB.movies[elementToDelete];
-        sortFilms();
-    }));
-}
-
-sortFilms();
-addAddListener();
