@@ -72,3 +72,10 @@ console.log(0 || "" || 2 || undefined || true || falsе);
 const ar = [1, 2, 3, 4];
 
 console.log(ar.slice(1).concat(ar[0]));
+
+function nearestValue(values, search){
+    values.sort((a,b) => a - b);
+    const newarr = values.map(item => Math.abs(item - search));    
+    return values[newarr.indexOf(Math.min(...newarr))];
+}
+console.log(nearestValue([4, 7, 10, 11, 12, 17], 0));
