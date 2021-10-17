@@ -1,0 +1,26 @@
+body {
+    background-color: khaki;
+}
+
+h2 {
+    color: red;
+    text-align: center;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 30px;
+
+}
+
+.chapter {
+    color: blue;
+}
+
+#begin {
+    color: yellowgreen;
+    font-weight: bold;
+}
+
+.text {
+    font-weight: 900;
+    text-transform: uppercase;
+}
