@@ -1,4 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
+
+    //Tabs
+
     const tabs = document.querySelectorAll('.tabheader__item'),
           tabsContent = document.querySelectorAll('.tabcontent'),
           tabsParent = document.querySelector('.tabheader__items');
@@ -34,4 +37,30 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    //Timer
+
+    const deadLineDate = new Date('2021-12-30');
+    let timerId;
+
+    function showTime(){
+        let calcTime = deadLineDate - new Date(),
+              days = document.querySelector('#days'),
+              hours = document.querySelector('#hours'),
+              minutes = document.querySelector('#minutes'),
+              seconds = document.querySelector('#seconds');
+
+        let forDataCount = calcTime % 86400000;
+        days.textContent = (calcTime - forDataCount) / 86400000;
+        calcTime = forDataCount;
+        forDataCount %= 3600000;
+        hours.textContent = (calcTime - forDataCount) / 3600000;
+        calcTime = forDataCount;
+        forDataCount %= 60000;
+        minutes.textContent = (calcTime - forDataCount) / 60000;
+        calcTime = forDataCount;
+        forDataCount %= 1000;
+        seconds.textContent = (calcTime - forDataCount) / 1000;           
+    }
+    timerId = setInterval(showTime, 1000);
 });
