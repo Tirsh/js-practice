@@ -40,27 +40,79 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Timer
 
-    const deadLineDate = new Date('2021-12-30');
-    let timerId;
+    // const deadLineDate = new Date('2021-12-30');
+    // let timerId;
 
-    function showTime(){
-        let calcTime = deadLineDate - new Date(),
-              days = document.querySelector('#days'),
-              hours = document.querySelector('#hours'),
-              minutes = document.querySelector('#minutes'),
-              seconds = document.querySelector('#seconds');
+    // function showTime(){
+    //     let calcTime = deadLineDate - new Date(),
+    //           days = document.querySelector('#days'),
+    //           hours = document.querySelector('#hours'),
+    //           minutes = document.querySelector('#minutes'),
+    //           seconds = document.querySelector('#seconds');
 
-        let forDataCount = calcTime % 86400000;
-        days.textContent = (calcTime - forDataCount) / 86400000;
-        calcTime = forDataCount;
-        forDataCount %= 3600000;
-        hours.textContent = (calcTime - forDataCount) / 3600000;
-        calcTime = forDataCount;
-        forDataCount %= 60000;
-        minutes.textContent = (calcTime - forDataCount) / 60000;
-        calcTime = forDataCount;
-        forDataCount %= 1000;
-        seconds.textContent = (calcTime - forDataCount) / 1000;           
+    //     let forDataCount = calcTime % 86400000;
+    //     days.textContent = (calcTime - forDataCount) / 86400000;
+    //     calcTime = forDataCount;
+    //     forDataCount %= 3600000;
+    //     hours.textContent = (calcTime - forDataCount) / 3600000;
+    //     calcTime = forDataCount;
+    //     forDataCount %= 60000;
+    //     minutes.textContent = (calcTime - forDataCount) / 60000;
+    //     calcTime = forDataCount;
+    //     forDataCount %= 1000;
+    //     seconds.textContent = (calcTime - forDataCount) / 1000;           
+    // }
+    // timerId = setInterval(showTime, 1000);
+    const deadLineDate = '2021-10-21';
+
+    function getTimeRemaining(endTime){
+        const t = Date.parse(endTime) - Date.parse(new Date()),
+              days = Math.floor(t / (1000 * 60 * 60 * 24)),
+              hours = Math.floor((t / (1000 * 60 * 60)) % 24),
+              minutes = Math.floor((t / (1000 * 60)) % 60),
+              seconds = Math.floor((t / 1000) % 60);
+
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
     }
-    timerId = setInterval(showTime, 1000);
+
+    function getZero(num){
+        if(num >= 0 && num < 10){
+            return '0' + num;
+        } else {
+            return num;
+        }
+    }
+
+    function setClock(element, endTime){
+        const timer = document.querySelector(element),
+              days = timer.querySelector('#days'),
+              hours = timer.querySelector('#hours'),
+              minutes = timer.querySelector('#minutes'),
+              seconds = timer.querySelector('#seconds'),
+              timerId = setInterval(updateClock, 1000);
+        
+        updateClock();
+        
+        function updateClock(){
+            const t = getTimeRemaining(endTime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if(t.total <= 0){
+                clearInterval(timerId);
+            }
+        }
+        
+    }
+
+    setClock('.timer', deadLineDate);
 });
