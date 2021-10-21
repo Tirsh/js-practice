@@ -26,7 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
     tabsParent.addEventListener('click', event => {
         event.preventDefault();
         const target = event.target;
-        console.log(target);
         if (target && target.classList.contains('tabheader__item')) {
             tabs.forEach((item, i) => {
                 if(item == target){
@@ -82,6 +81,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function getZero(num){
+        if(num < 0){
+            return '00';
+        }
         if(num >= 0 && num < 10){
             return '0' + num;
         } else {
@@ -115,4 +117,39 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadLineDate);
+
+    //modal
+
+    function startModal(){
+        const modalBtn = document.querySelectorAll('[data-modal]'),
+              modalWindow = document.querySelector('.modal'),
+              modalClose = document.querySelector('[data-close]');
+
+        function showModel(){
+            modalWindow.classList.remove('hide');
+            modalWindow.classList.add('show');
+            modalWindow.addEventListener('click', hideModel);
+            document.addEventListener('keydown', (event) => {
+                if(event.code === 'Escape'){
+                    hideModel(event);
+                }
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModel(e){
+            if(e.target === modalClose || e.target === modalWindow || e.type === 'keydown'){
+                modalWindow.classList.remove('show');
+                modalWindow.classList.add('hide');
+                document.body.style.overflow = 'auto';
+                modalWindow.removeEventListener('click', hideModel);
+            }       
+        }
+
+        modalBtn.forEach(item => {
+            item.addEventListener('click', showModel);
+        });
+    }
+    
+    startModal();
 });
