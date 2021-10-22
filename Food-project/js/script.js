@@ -135,6 +135,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             });
             document.body.style.overflow = 'hidden';
+            clearInterval(modalTimerId);
         }
 
         function hideModel(e){
@@ -149,6 +150,17 @@ window.addEventListener('DOMContentLoaded', () => {
         modalBtn.forEach(item => {
             item.addEventListener('click', showModel);
         });
+
+        const modalTimerId = setTimeout(showModel, 15000);
+
+        function showModelByScroll(){
+            if(window.pageYOffset + document.documentElement.clientHeight ==
+                document.documentElement.scrollHeight){
+                    showModel();
+                    removeEventListener('scroll', showModelByScroll);
+                }
+        }
+        window.addEventListener('scroll', showModelByScroll);
     }
     
     startModal();
