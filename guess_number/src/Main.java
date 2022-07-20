@@ -4,16 +4,16 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-
         System.out.println("Ваша задача угадать число");
-        int range = 10;
-        int num = (int)(Math.random()*range);
-        playLevel(num, range);
-
+        for(int range=10; range<=30; range +=10) {
+            playLevel(range);
+        }
+        System.out.println("Вы выйграли");
         scanner.close();
     }
 
-    private static void playLevel(int num, int range){
+    private static void playLevel(int range){
+        int num = (int) (Math.random() * range);
         while(true){
             System.out.println("Угадайте число от 0 до "+range);
             int input_number = scanner.nextInt();
